@@ -1,5 +1,5 @@
 # Phisocks
-SOCKS4/4a/5/5h client implementation for PHP 5.2+
+**SOCKS4/4a/5/5h client implementation for PHP 5.2+**
 
 Standalone using native PHP sockets.
 
@@ -10,6 +10,8 @@ Supports TCP and IPv4 only.
 Switch between 4(5) and 4a(5h) by adjusting `$remoteDNS`.
 
 Consult source code for detailed configuration info.
+
+Released in public domain.
 
 * SOCKS 4 spec:   http://www.openssh.com/txt/socks4.protocol
 * SOCKS 4a spec:  http://www.openssh.com/txt/socks4a.protocol
