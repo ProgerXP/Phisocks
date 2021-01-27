@@ -247,7 +247,9 @@ class Phisocks {
       }
     }
     $this->ensureOpened(__FUNCTION__);
-    stream_socket_enable_crypto($this->handle, true, $type);
+    if (stream_socket_enable_crypto($this->handle, true, $type) !== true) {
+      EPhisocks::fail("cannot enable crypto", $this);
+    }
     return $this;
   }
 
