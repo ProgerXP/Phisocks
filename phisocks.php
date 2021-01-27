@@ -234,7 +234,18 @@ class Phisocks {
     return $this->close($this->readAll());
   }
 
-  function enableCrypto($type = STREAM_CRYPTO_METHOD_TLS_CLIENT) {
+  function enableCrypto($type = null) {
+    // https://bugs.php.net/bug.php?id=69195
+    if ($type === null) {
+      if (version_compare(PHP_VERSION, '7.2', '>=') or 
+          !defined('STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT')) {
+        $type = STREAM_CRYPTO_METHOD_TLS_CLIENT;
+      } else {  // PHP 5.6.x
+        $type = STREAM_CRYPTO_METHOD_TLSv1_0_CLIENT + 
+                STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT + 
+                STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT;
+      }
+    }
     $this->ensureOpened(__FUNCTION__);
     stream_socket_enable_crypto($this->handle, true, $type);
     return $this;
